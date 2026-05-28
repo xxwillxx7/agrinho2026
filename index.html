@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sistema de Sugestões Agrícolas</title>
+
+  <meta 
+    name="description" 
+    content="Projeto Agrinho 2026 sobre sugestões agrícolas, sustentabilidade, agricultura familiar e análise de culturas como feijão, milho e soja."
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topo" id="inicio">
+    <div class="topo-conteudo">
+      <div class="marca-projeto">
+        <a href="index.html" class="logo">🌱 Agrinho</a>
+        <p class="tema-projeto">Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
+      </div>
+
+      <nav class="menu">
+        <a href="#inicio">Início</a>
+        <a href="#culturas">Culturas</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#fontes">Fontes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-texto">
+        <span class="etiqueta">Agro forte, futuro sustentável</span>
+
+        <h1>Sistema de Sugestões Agrícolas</h1>
+
+        <p>
+          Este projeto apresenta informações sobre culturas agrícolas, agricultura familiar,
+          mercado, riscos climáticos e sustentabilidade, usando HTML, CSS, JavaScript e arquivos JSON.
+        </p>
+
+        <p>
+          O objetivo é mostrar como a tecnologia pode ajudar na organização e apresentação de dados
+          sobre o campo, fortalecendo a relação entre produção agrícola, meio ambiente e sociedade.
+        </p>
+
+        <div class="hero-botoes">
+          <a href="#culturas" class="botao-principal">Explorar culturas</a>
+          <a href="#sobre" class="botao-secundario">Conhecer o projeto</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-conteudo">
+          <span>🌾</span>
+          <h2>Campo, tecnologia e sustentabilidade</h2>
+          <p>
+            Cada cultura possui uma página própria com dados organizados, imagem ilustrativa,
+            fontes consultadas e apoio de leitura por JavaScript.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="culturas" class="secao">
+      <div class="cabecalho-secao">
+        <span class="etiqueta">Culturas agrícolas</span>
+        <h2>Escolha uma cultura</h2>
+        <p>
+          Clique em uma cultura para abrir uma página específica com informações pesquisadas,
+          análise dos dados e fontes utilizadas.
+        </p>
+      </div>
+
+      <div class="cards-culturas">
+
+        <article class="card-cultura">
+          <img src="img/feijao.png" alt="Imagem representando o cultivo de feijão">
+
+          <div>
+            <h3>Feijão</h3>
+
+            <p>
+              Cultura essencial para a alimentação brasileira, com forte presença na agricultura familiar
+              e importância para a segurança alimentar.
+            </p>
+
+            <a href="feijao.html" class="botao-principal">Ver página do feijão</a>
+          </div>
+        </article>
+
+        <article class="card-cultura">
+          <img src="img/milho.png" alt="Imagem representando o cultivo de milho">
+
+          <div>
+            <h3>Milho</h3>
+
+            <p>
+              Cultura versátil, usada na alimentação humana, animal, na indústria e em sistemas
+              de rotação de culturas.
+            </p>
+
+            <a href="milho.html" class="botao-principal">Ver página do milho</a>
+          </div>
+        </article>
+
+        <article class="card-cultura">
+          <img src="img/soja.png" alt="Imagem representando o cultivo de soja">
+
+          <div>
+            <h3>Soja</h3>
+
+            <p>
+              Cultura de grande importância econômica, presente no agronegócio e em debates sobre
+              produção, mercado e sustentabilidade.
+            </p>
+
+            <a href="soja.html" class="botao-principal">Ver página da soja</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="sobre" class="secao secao-destaque">
+      <div class="cabecalho-secao">
+        <span class="etiqueta">Sobre o projeto</span>
+        <h2>Como o sistema funciona?</h2>
+        <p>
+          O site foi organizado para apresentar informações agrícolas de maneira simples,
+          visual e interativa.
+        </p>
+      </div>
+
+      <div class="cards-culturas cards-info">
+
+        <article class="card-cultura card-info">
+          <div>
+            <h3>Arquivos JSON</h3>
+            <p>
+              As informações de cada cultura ficam armazenadas em arquivos separados dentro da pasta
+              <strong>dados</strong>. O JavaScript lê esses arquivos e exibe o conteúdo na página.
+            </p>
+          </div>
+        </article>
+
+        <article class="card-cultura card-info">
+          <div>
+            <h3>JavaScript</h3>
+            <p>
+              O arquivo <strong>script.js</strong> é responsável por buscar os dados, montar o conteúdo
+              na tela e organizar as informações de forma dinâmica.
+            </p>
+          </div>
+        </article>
+
+        <article class="card-cultura card-info">
+          <div>
+            <h3>Sustentabilidade</h3>
+            <p>
+              O projeto relaciona produção agrícola, agricultura familiar, riscos climáticos,
+              mercado e equilíbrio ambiental.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="fontes" class="secao">
+      <div class="cabecalho-secao">
+        <span class="etiqueta">Pesquisa e fontes</span>
+        <h2>Fontes dos dados</h2>
+        <p>
+          As páginas das culturas apresentam as fontes utilizadas nos arquivos JSON.
+          Entre as referências estão relatórios agrícolas, censos agropecuários e estudos técnicos.
+        </p>
+      </div>
+<div class="fontes-dados">
+  <h3>Fontes utilizadas na pesquisa</h3>
+
+  <ul>
+    <li>Secretaria da Agricultura e do Abastecimento do Paraná - SEAB.</li>
+    <li>Departamento de Economia Rural do Paraná - DERAL.</li>
+    <li>Página oficial “Situação das Principais Culturas” - SEAB/DERAL.</li>
+    <li>Levantamento da Produção Agropecuária do Paraná - DERAL.</li>
+    <li>Relatórios e documentos técnicos sobre milho, soja e feijão no Paraná.</li>
+    <li>IBGE - Censo Agropecuário.</li>
+    <li>IPEA - Estudos sobre agricultura familiar brasileira.</li>
+    <li>UTFPR - Estudo sobre sistema de controle automático de termonebulizador agrícola para controle de geadas em plantações.</li>
+    <li>eduCAPES - Registro de trabalho técnico relacionado ao controle de geadas em plantações.</li>
+    <li>Pesquisa sobre a dinâmica da agricultura familiar em Toledo/PR com base nos Censos Agropecuários de 2006 e 2017.</li>
+    <li>Panorama da Agricultura Familiar e da Produção Orgânica no Paraná.</li>
+    <li>Materiais técnicos sobre agricultura familiar, produção orgânica, sustentabilidade e riscos climáticos.</li>
+  </ul>
+
+  <h3>Uso de Inteligência Artificial</h3>
+
+  <ul>
+    <li>Gemini: utilizado como apoio na criação das imagens ilustrativas das culturas agrícolas presentes no site.</li>
+    <li>ChatGPT: utilizado como apoio na revisão e melhoria dos códigos HTML, CSS e JavaScript.</li>
+    <li>A Inteligência Artificial foi utilizada como ferramenta de apoio educacional, sem substituir a pesquisa, a organização dos dados e a autoria.</li>
+    <li>As informações apresentadas no projeto foram conferidas e organizadas a partir das fontes de pesquisa indicadas nas páginas das culturas.</li>
+  </ul>
+</div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <p>Projeto Agrinho 2026 — Sistema de Sugestões Agrícolas</p>
+    <p>Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente.</p>
+  </footer>
+
+</body>
+</html>
