@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Soja - Sistema de Sugestões Agrícolas</title>
+
+  <meta 
+    name="description" 
+    content="Página sobre a cultura da soja, abordando produção agrícola, mercado, agricultura familiar, riscos climáticos e fontes de dados."
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-cultura="soja">
+
+  <header class="topo" id="inicio">
+    <div class="topo-conteudo">
+      <a href="index.html" class="logo">🌱 Agrinho</a>
+
+      <nav class="menu">
+        <a href="index.html">Início</a>
+        <a href="index.html#culturas">Culturas</a>
+        <a href="#resultado">Dados</a>
+        <a href="#ia">Assistente IA</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero hero-cultura">
+      <div class="hero-texto">
+        <span class="etiqueta">Cultura agrícola</span>
+
+        <h1>Soja</h1>
+
+        <p>
+          A soja é uma das culturas de maior importância econômica no Brasil, com forte presença
+          no agronegócio, na exportação e em sistemas de produção agrícola.
+        </p>
+
+        <p>
+          Esta página apresenta informações sobre mercado, produção, agricultura familiar,
+          impactos regionais, riscos climáticos e fontes de dados utilizadas na pesquisa.
+        </p>
+
+        <div class="hero-botoes">
+          <a href="#resultado" class="botao-principal">Ver dados da soja</a>
+          <a href="index.html" class="botao-secundario">Voltar ao início</a>
+        </div>
+      </div>
+
+      <div class="hero-card hero-card-soja">
+        <div class="hero-card-conteudo">
+          <span>🌱</span>
+          <h2>Soja e produção agrícola</h2>
+          <p>
+            Uma cultura estratégica para a economia agrícola, mas que também exige reflexão
+            sobre sustentabilidade, uso do solo e equilíbrio ambiental.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultado" class="secao resultado">
+      <div class="resultado-inicial">
+        <span>⏳</span>
+        <h2>Carregando dados da soja...</h2>
+        <p>Aguarde enquanto as informações são buscadas no arquivo JSON.</p>
+      </div>
+    </section>
+
+    <section id="ia" class="secao area-ia">
+      <div class="cabecalho-secao">
+        <span class="etiqueta etiqueta-azul">Assistente agrícola</span>
+
+        <h2>Consulta com Inteligência Artificial</h2>
+
+        <p>
+          Use este espaço para consultar orientações sobre a cultura da soja.
+          A IA deve ser usada como apoio, e as informações importantes devem ser conferidas
+          em fontes oficiais.
+        </p>
+      </div>
+
+      <div class="form-ia">
+        <p class="aviso-ia">
+          A IA responderá apenas perguntas relacionadas à agricultura.
+        </p>
+<div class="nota-api">
+  <h3>Nota sobre o uso da API</h3>
+  <p>
+    O recurso de Inteligência Artificial utilizado neste projeto funciona por meio de uma API
+    acessada através de um arquivo fornecido pelo professor orientador. Esse arquivo faz a comunicação
+    entre o site e o serviço de IA, evitando que chaves sensíveis sejam expostas diretamente
+    no código HTML, CSS ou JavaScript do projeto.
+  </p>
+  <p>
+    A IA é utilizada apenas como apoio para consultas relacionadas à agricultura. As respostas
+    geradas devem ser conferidas com as fontes oficiais utilizadas na pesquisa do projeto.
+  </p>
+</div>
+
+        <label for="chaveIa">Chave temporária de IA</label>
+        <input 
+          type="password" 
+          id="chaveIa" 
+          placeholder="Digite sua chave temporária de IA"
+          autocomplete="off"
+        >
+
+        <label class="opcao-chave">
+          <input 
+            type="checkbox" 
+            id="apagarChaveAposConsulta"
+            checked
+          >
+          Apagar chave após cada consulta
+        </label>
+
+        <label for="culturaIa">Cultura agrícola</label>
+        <input 
+          type="text" 
+          id="culturaIa" 
+          placeholder="Exemplo: soja"
+        >
+
+        <label for="perguntaIa">Sua pergunta</label>
+        <textarea 
+          id="perguntaIa" 
+          placeholder="Exemplo: Quais são os principais impactos da soja na agricultura familiar?"
+        ></textarea>
+
+        <button type="button" onclick="consultarIa()" class="botao-principal">
+          Consultar IA
+        </button>
+
+        <div id="respostaIa" class="resposta-ia"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <p>Projeto Agrinho 2026 — Sistema de Sugestões Agrícolas</p>
+    <p>Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
