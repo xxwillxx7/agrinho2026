@@ -1,0 +1,97 @@
+{
+  "cultura": "Soja",
+  "contexto_geral": "A soja é identificada como um dos principais pilares do agronegócio e da economia agrícola, com forte presença em sistemas de produção integrados e voltados para a exportação. No Paraná, a cultura tem grande importância produtiva, econômica e comercial.",
+  "analise_mercado_e_producao_2008": {
+    "condicoes_climaticas": "As condições climáticas foram favoráveis no período de meados de outubro de 2007 em diante, resultando em lavouras com bom estande e desenvolvimento no Paraná.",
+    "comercializacao": {
+      "ritmo": "As vendas foram consideradas lentas no início de 2008.",
+      "estoque": "Produtores capitalizados seguravam o produto à espera de melhores cotações.",
+      "precos": "Em janeiro de 2008, o preço médio no Paraná era de R$ 42,50 por saca, com tendência de alta influenciada pela Bolsa de Chicago."
+    },
+    "estimativa_safra_07_08": {
+      "area_plantada": "2.316.516 hectares, com estabilidade em relação à safra anterior.",
+      "producao_esperada": "11.916.480 toneladas, com aumento de 1% apesar da área similar."
+    }
+  },
+  "dinamica_na_agricultura_familiar_toledo": {
+    "perfil_produtivo": "A soja faz parte do modelo de agricultura convencional ou de commodities que domina a paisagem agrícola de Toledo.",
+    "impactos": [
+      "Concentração de terras: o fortalecimento da monocultura de soja contribui para a retração da área de pequenos estabelecimentos familiares.",
+      "Uso de insumos: observa-se aumento no uso de agrotóxicos e insumos vinculados ao cultivo de soja.",
+      "Substituição produtiva: a soja e o milho exercem pressão sobre áreas anteriormente destinadas à diversidade de alimentos, como hortifrutigranjeiros."
+    ]
+  },
+  "riscos_climaticos": {
+    "geadas": "Embora a soja de verão normalmente escape das geadas de inverno, o tema das geadas aparece nos estudos técnicos como risco climático relevante para diferentes culturas agrícolas e para o PIB agrícola.",
+    "chuvas": "As chuvas de final de ano em 2007 foram benéficas para o desenvolvimento das lavouras de soja, ao contrário do observado em culturas mais sensíveis ao excesso de umidade no período de colheita."
+  },
+  "relacao_com_sustentabilidade": {
+    "desafios": [
+      "Reduzir impactos ambientais associados à monocultura.",
+      "Diminuir riscos relacionados ao uso intensivo de insumos agrícolas.",
+      "Equilibrar produção de commodities com diversidade produtiva e segurança alimentar.",
+      "Evitar a concentração de terras e fortalecer alternativas para pequenos produtores."
+    ],
+    "possibilidades": [
+      "Adoção de rotação de culturas.",
+      "Uso responsável de tecnologias agrícolas.",
+      "Manejo integrado de pragas e doenças.",
+      "Conservação do solo e da água.",
+      "Planejamento produtivo com base em dados oficiais e acompanhamento técnico."
+    ]
+  },
+  "fontes_de_referencia": [
+    {
+      "titulo": "Soja - Safra 2008/09",
+      "instituicao": "Secretaria da Agricultura e do Abastecimento do Paraná / DERAL",
+      "ano": "2009",
+      "observacao": "Documento técnico do DERAL sobre a soja no Paraná, com informações de produção, importância econômica e dados da safra 2008/09.",
+      "link": "https://www.agricultura.pr.gov.br/sites/default/arquivos_restritos/files/qas/2107/soja_relato_2008_09.pdf"
+    },
+    {
+      "titulo": "Situação das Principais Culturas",
+      "instituicao": "Secretaria da Agricultura e do Abastecimento do Paraná / DERAL",
+      "observacao": "Página oficial de acompanhamento das principais culturas agrícolas do Paraná.",
+      "link": "https://www.agricultura.pr.gov.br/Pagina/Situacao-Principais-Culturas"
+    },
+    {
+      "titulo": "Levantamento da Produção Agropecuária",
+      "instituicao": "Secretaria da Agricultura e do Abastecimento do Paraná / DERAL",
+      "observacao": "Base com série histórica da área colhida e produção de culturas, incluindo soja, milho e feijão.",
+      "link": "https://www.agricultura.pr.gov.br/deral/ProducaoAnual"
+    },
+    {
+      "titulo": "Departamento de Economia Rural - DERAL",
+      "instituicao": "Secretaria da Agricultura e do Abastecimento do Paraná",
+      "observacao": "Página institucional do DERAL, responsável por gerar dados, analisar e acompanhar cadeias produtivas de importância no Paraná.",
+      "link": "https://www.agricultura.pr.gov.br/Pagina/Departamento-de-Economia-Rural-Deral"
+    },
+    {
+      "titulo": "A dinâmica da agricultura familiar em Toledo (PR) no contexto regional e nacional: uma análise comparativa dos Censos Agropecuários de 2006 e 2017",
+      "ano": "2025",
+      "observacao": "Artigo usado para contextualizar agricultura familiar, transformações produtivas e pressão das commodities no município de Toledo.",
+      "link": "https://www.researchgate.net/publication/394219100_A_DINAMICA_DA_AGRICULTURA_FAMILIAR_EM_TOLEDO_PR_NO_CONTEXTO_REGIONAL_E_NACIONAL_UMA_ANALISE_COMPARATIVA_DOS_CENSOS_AGROPECUARIOS_DE_2006_E_2017"
+    },
+    {
+      "titulo": "Desenvolvimento de sistema de controle automático de um termonebulizador agrícola para controle de geadas em plantações",
+      "instituicao": "UTFPR",
+      "ano": "2017",
+      "observacao": "Estudo técnico utilizado para relacionar riscos climáticos, geadas e tecnologias de proteção em plantações.",
+      "link": "https://repositorio.utfpr.edu.br/jspui/bitstream/1/9512/2/CT_COMET_2017_1_02.pdf"
+    },
+    {
+      "titulo": "Desenvolvimento de sistema de controle automático de um termonebulizador agrícola para controle de geadas em plantações",
+      "instituicao": "eduCAPES / UTFPR",
+      "ano": "2017",
+      "observacao": "Registro com metadados do trabalho da UTFPR sobre controle de geadas em plantações.",
+      "link": "https://educapes.capes.gov.br/handle/capes/1084938?mode=full"
+    },
+    {
+      "titulo": "O perfil na produção da agricultura familiar",
+      "instituicao": "IPEA",
+      "ano": "2022",
+      "observacao": "Estudo sobre mudanças na agricultura familiar brasileira a partir dos Censos Agropecuários de 2006 e 2017.",
+      "link": "https://repositorio.ipea.gov.br/bitstreams/21e5196b-995b-4918-88a7-eec155064555/download"
+    }
+  ]
+}
