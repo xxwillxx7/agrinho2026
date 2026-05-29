@@ -8,27 +8,69 @@
 
   <meta 
     name="description" 
-    content="Página sobre a cultura da soja, abordando produção agrícola, mercado, agricultura familiar, riscos climáticos e fontes de dados."
+    content="Página sobre a cultura da soja, produção agrícola, mercado, agricultura familiar, riscos climáticos, sustentabilidade e fontes de pesquisa."
   >
 
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/favicon.png">
 </head>
 <body data-cultura="soja">
 
   <header class="topo" id="inicio">
     <div class="topo-conteudo">
-      <a href="index.html" class="logo">🌱 Agrinho</a>
 
-      <nav class="menu">
+      <div class="marca-projeto">
+        <a href="index.html" class="logo">🌱 Agrinho</a>
+        <p class="tema-projeto">
+          Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente
+        </p>
+      </div>
+
+      <nav class="menu" aria-label="Menu principal">
         <a href="index.html">Início</a>
         <a href="index.html#culturas">Culturas</a>
         <a href="#resultado">Dados</a>
-        <a href="#ia">Assistente IA</a>
+        <a href="#ia">Pesquisa simulada</a>
       </nav>
+
     </div>
   </header>
 
-  <main>
+  <div class="acessibilidade" aria-label="Recursos de acessibilidade">
+    <button 
+      type="button" 
+      id="btn-toggle-acessibilidade" 
+      class="btn-acessibilidade-principal"
+      aria-label="Abrir opções de acessibilidade"
+      aria-expanded="false"
+    >
+      Acessibilidade
+    </button>
+
+    <div class="painel-acessibilidade" id="painel-acessibilidade" aria-hidden="true">
+      <button type="button" id="btn-aumentar-fonte" aria-label="Aumentar tamanho da fonte">
+        A+
+      </button>
+
+      <button type="button" id="btn-diminuir-fonte" aria-label="Diminuir tamanho da fonte">
+        A-
+      </button>
+
+      <button type="button" id="btn-restaurar-fonte" aria-label="Restaurar tamanho padrão da fonte">
+        Fonte padrão
+      </button>
+
+      <button type="button" id="btn-ler-pagina" aria-label="Ler conteúdo principal da página">
+        Ler página
+      </button>
+
+      <button type="button" id="btn-parar-leitura" aria-label="Parar leitura da página">
+        Parar leitura
+      </button>
+    </div>
+  </div>
+
+  <main id="conteudo-principal">
 
     <section class="hero hero-cultura">
       <div class="hero-texto">
@@ -43,7 +85,7 @@
 
         <p>
           Esta página apresenta informações sobre mercado, produção, agricultura familiar,
-          impactos regionais, riscos climáticos e fontes de dados utilizadas na pesquisa.
+          impactos regionais, riscos climáticos, sustentabilidade e fontes de dados utilizadas na pesquisa.
         </p>
 
         <div class="hero-botoes">
@@ -74,57 +116,50 @@
 
     <section id="ia" class="secao area-ia">
       <div class="cabecalho-secao">
-        <span class="etiqueta etiqueta-azul">Assistente agrícola</span>
+        <span class="etiqueta etiqueta-azul">Pesquisa simulada</span>
 
-        <h2>Consulta com Inteligência Artificial</h2>
+        <h2>Simulação de Pesquisa com Inteligência Artificial</h2>
 
         <p>
-          Use este espaço para consultar orientações sobre a cultura da soja.
-          A IA deve ser usada como apoio, e as informações importantes devem ser conferidas
-          em fontes oficiais.
+          Este espaço simula o uso de uma Inteligência Artificial para apoiar pesquisas sobre agricultura.
+          As respostas não são geradas por uma IA real em tempo real. Elas são carregadas de um arquivo JSON
+          criado para fins educacionais.
         </p>
       </div>
 
       <div class="form-ia">
         <p class="aviso-ia">
-          A IA responderá apenas perguntas relacionadas à agricultura.
+          Esta é uma simulação. O sistema pesquisa respostas prontas em um arquivo JSON local.
         </p>
-<div class="nota-api">
-  <h3>Nota sobre o uso da API</h3>
-  <p>
-    O recurso de Inteligência Artificial utilizado neste projeto funciona por meio de uma API
-    acessada através de um arquivo fornecido pelo professor orientador. Esse arquivo faz a comunicação
-    entre o site e o serviço de IA, evitando que chaves sensíveis sejam expostas diretamente
-    no código HTML, CSS ou JavaScript do projeto.
-  </p>
-  <p>
-    A IA é utilizada apenas como apoio para consultas relacionadas à agricultura. As respostas
-    geradas devem ser conferidas com as fontes oficiais utilizadas na pesquisa do projeto.
-  </p>
-</div>
 
-        <label for="chaveIa">Chave temporária de IA</label>
-        <input 
-          type="password" 
-          id="chaveIa" 
-          placeholder="Digite sua chave temporária de IA"
-          autocomplete="off"
-        >
+        <div class="nota-api">
+          <h3>Nota sobre a simulação</h3>
 
-        <label class="opcao-chave">
-          <input 
-            type="checkbox" 
-            id="apagarChaveAposConsulta"
-            checked
-          >
-          Apagar chave após cada consulta
-        </label>
+          <p>
+            Para manter o projeto dentro da proposta de programação front-end, esta área não utiliza
+            API real de Inteligência Artificial, não envia dados para serviços externos e não depende
+            de chave de acesso.
+          </p>
+
+          <p>
+            A consulta é feita no arquivo <strong>ia_simulada.json</strong>, localizado na pasta
+            <strong>dados</strong>. Esse arquivo contém respostas previamente organizadas sobre
+            agricultura familiar, sustentabilidade, riscos climáticos, mercado e culturas agrícolas.
+          </p>
+
+          <p>
+            O conteúdo textual do arquivo de simulação foi produzido com apoio do ChatGPT e deve ser
+            entendido como material educativo complementar. As informações importantes devem ser
+            conferidas nas fontes oficiais indicadas no projeto.
+          </p>
+        </div>
 
         <label for="culturaIa">Cultura agrícola</label>
         <input 
           type="text" 
           id="culturaIa" 
           placeholder="Exemplo: soja"
+          readonly
         >
 
         <label for="perguntaIa">Sua pergunta</label>
@@ -133,8 +168,8 @@
           placeholder="Exemplo: Quais são os principais impactos da soja na agricultura familiar?"
         ></textarea>
 
-        <button type="button" onclick="consultarIa()" class="botao-principal">
-          Consultar IA
+        <button type="button" id="btn-consultar-ia" class="botao-principal">
+          Pesquisar na simulação
         </button>
 
         <div id="respostaIa" class="resposta-ia"></div>
