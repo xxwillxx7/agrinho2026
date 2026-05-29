@@ -1,5 +1,6 @@
 let culturaAtual = null;
 let dadosCulturaAtual = null;
+let nivelFonte = 0;
 
 const imagensCulturas = {
   feijao: "img/feijao.png",
@@ -32,7 +33,6 @@ async function carregarCultura(cultura) {
     }
 
     const texto = await resposta.text();
-
     let dados;
 
     try {
@@ -354,6 +354,425 @@ function montarItemFonte(fonte) {
   return `<li>${escaparHtml(textoFonte)}</li>`;
 }
 
+async function consultarIa() {
+  const culturaIaCampo = document.getElementById("culturaIa");
+  const perguntaIaCampo = document.getElementById("perguntaIa");
+  const respostaIa = document.getElementById("respostaIa");
+
+  if (!culturaIaCampo || !perguntaIaCampo || !respostaIa) {
+    return;
+  }
+
+  const culturaIa = normalizarTexto(culturaIaCampo.value);
+  const perguntaOriginal = perguntaIaCampo.value.trim();
+  const perguntaIa = normalizarTexto(perguntaOriginal);
+
+  respostaIa.classList.remove("erro");
+
+  if (!culturaIa) {
+    respostaIa.classList.add("erro");
+    respostaIa.textContent = "A cultura ainda não foi identificada pela página.";
+    return;
+  }
+
+  if (!perguntaIa) {
+    respostaIa.classList.add("erro");
+    respostaIa.textContent = "Digite uma pergunta para pesquisar na simulação.";
+    return;
+  }
+
+  respostaIa.textContent = "Pesquisando no arquivo da simulação...";
+
+  try {
+    const resposta = await fetch("dados/ia_simulada.json");
+
+    if (!resposta.ok) {
+      throw new Error("Arquivo dados/ia_simulada.json não encontrado.");
+    }
+
+    const texto = await resposta.text();
+    let dadosSimulacao;
+
+    try {
+      dadosSimulacao = JSON.parse(texto);
+    } catch (erroJson) {
+      throw new Error("O arquivo ia_simulada.json foi encontrado, mas está com erro de escrita.");
+    }
+
+    const respostaMontada = montarRespostaPorBuscaLivre(dadosSimulacao, culturaIa, perguntaIa);
+
+    if (respostaMontada) {
+      respostaIa.textContent = respostaMontada;
+    } else {
+      respostaIa.textContent = dadosSimulacao.resposta_padrao || "Não encontrei informações suficientes no arquivo da simulação. Tente usar palavras como agricultura familiar, clima, solo, renda, mercado, sustentabilidade, feijão, milho ou soja.";
+    }
+
+  } catch (erro) {
+    respostaIa.classList.add("erro");
+    respostaIa.textContent = "Erro na pesquisa simulada: " + erro.message;
+    console.error(erro);
+  }
+}
+
+function montarRespostaPorBuscaLivre(dadosSimulacao, culturaIa, perguntaIa) {
+  const palavrasPergunta = extrairPalavrasImportantes(perguntaIa);
+
+  if (palavrasPergunta.length === 0) {
+    return "";
+  }
+
+  const blocos = criarBlocosPesquisaveis(dadosSimulacao, culturaIa);
+
+  const blocosPontuados = blocos
+    .map(bloco => ({
+      ...bloco,
+      pontuacao: calcularPontuacaoLivre(palavrasPergunta, bloco.textoNormalizado, bloco.culturaNormalizada, culturaIa)
+    }))
+    .filter(bloco => bloco.pontuacao > 0)
+    .sort((a, b) => b.pontuacao - a.pontuacao);
+
+  if (blocosPontuados.length === 0) {
+    return "";
+  }
+
+  const melhoresBlocos = selecionarBlocosRelevantes(blocosPontuados);
+
+  if (melhoresBlocos.length === 0) {
+    return "";
+  }
+
+  let resposta = "Resultado da pesquisa simulada:\n\n";
+
+  melhoresBlocos.forEach((bloco, indice) => {
+    resposta += `${indice + 1}. ${bloco.titulo}\n`;
+    resposta += `${bloco.texto}\n\n`;
+  });
+
+  resposta += "Observação: esta resposta foi montada a partir da busca de palavras no arquivo local ia_simulada.json. Não é uma resposta gerada por uma IA real em tempo real.";
+
+  return resposta.trim();
+}
+
+function criarBlocosPesquisaveis(dadosSimulacao, culturaIa) {
+  const blocos = [];
+
+  if (dadosSimulacao.contexto_geral) {
+    Object.keys(dadosSimulacao.contexto_geral).forEach(chave => {
+      adicionarBloco(blocos, {
+        cultura: "geral",
+        titulo: `Contexto geral - ${formatarTitulo(chave)}`,
+        texto: dadosSimulacao.contexto_geral[chave]
+      });
+    });
+  }
+
+  const culturas = Array.isArray(dadosSimulacao.culturas) ? dadosSimulacao.culturas : [];
+
+  culturas.forEach(cultura => {
+    const id = cultura.id || "";
+    const nome = cultura.nome || id;
+    const culturaNormalizada = normalizarTexto(id || nome);
+
+    if (culturaNormalizada !== culturaIa) {
+      return;
+    }
+
+    adicionarBloco(blocos, {
+      cultura: id,
+      titulo: `${nome} - Resumo`,
+      texto: cultura.resumo
+    });
+
+    adicionarObjetoComoBlocos(blocos, cultura.importancia_na_agricultura_familiar, id, `${nome} - Importância na agricultura familiar`);
+    adicionarObjetoComoBlocos(blocos, cultura.aspectos_produtivos, id, `${nome} - Aspectos produtivos`);
+    adicionarObjetoComoBlocos(blocos, cultura.riscos_e_desafios, id, `${nome} - Riscos e desafios`);
+    adicionarObjetoComoBlocos(blocos, cultura.relacao_com_sustentabilidade, id, `${nome} - Relação com sustentabilidade`);
+
+    const perguntas = Array.isArray(cultura.perguntas_simuladas) ? cultura.perguntas_simuladas : [];
+
+    perguntas.forEach(item => {
+      adicionarBloco(blocos, {
+        cultura: id,
+        titulo: `${nome} - Pergunta relacionada`,
+        texto: `${item.pergunta} ${item.resposta}`
+      });
+    });
+  });
+
+  if (dadosSimulacao.temas_transversais) {
+    Object.keys(dadosSimulacao.temas_transversais).forEach(chave => {
+      const tema = dadosSimulacao.temas_transversais[chave];
+
+      adicionarBloco(blocos, {
+        cultura: "geral",
+        titulo: `Tema transversal - ${formatarTitulo(chave)}`,
+        texto: transformarValorEmTexto(tema)
+      });
+    });
+  }
+
+  const respostasGerais = Array.isArray(dadosSimulacao.respostas_gerais_para_simulacao)
+    ? dadosSimulacao.respostas_gerais_para_simulacao
+    : [];
+
+  respostasGerais.forEach(item => {
+    adicionarBloco(blocos, {
+      cultura: "geral",
+      titulo: "Resposta geral da simulação",
+      texto: `${(item.palavras_chave || []).join(", ")}. ${item.resposta || ""}`
+    });
+  });
+
+  return blocos;
+}
+
+function adicionarObjetoComoBlocos(blocos, objeto, cultura, tituloBase) {
+  if (!objeto) {
+    return;
+  }
+
+  if (typeof objeto === "string") {
+    adicionarBloco(blocos, {
+      cultura: cultura,
+      titulo: tituloBase,
+      texto: objeto
+    });
+    return;
+  }
+
+  if (Array.isArray(objeto)) {
+    adicionarBloco(blocos, {
+      cultura: cultura,
+      titulo: tituloBase,
+      texto: objeto.join(" ")
+    });
+    return;
+  }
+
+  if (typeof objeto === "object") {
+    Object.keys(objeto).forEach(chave => {
+      adicionarBloco(blocos, {
+        cultura: cultura,
+        titulo: `${tituloBase} - ${formatarTitulo(chave)}`,
+        texto: transformarValorEmTexto(objeto[chave])
+      });
+    });
+  }
+}
+
+function adicionarBloco(blocos, bloco) {
+  if (!bloco || !bloco.texto) {
+    return;
+  }
+
+  const texto = String(bloco.texto).trim();
+
+  if (!texto) {
+    return;
+  }
+
+  blocos.push({
+    cultura: bloco.cultura || "geral",
+    culturaNormalizada: normalizarTexto(bloco.cultura || "geral"),
+    titulo: bloco.titulo || "Informação encontrada",
+    texto: texto,
+    textoNormalizado: normalizarTexto(`${bloco.titulo || ""} ${texto}`)
+  });
+}
+
+function transformarValorEmTexto(valor) {
+  if (!valor) {
+    return "";
+  }
+
+  if (typeof valor === "string") {
+    return valor;
+  }
+
+  if (Array.isArray(valor)) {
+    return valor.map(item => transformarValorEmTexto(item)).join(" ");
+  }
+
+  if (typeof valor === "object") {
+    return Object.keys(valor)
+      .map(chave => `${formatarTitulo(chave)}: ${transformarValorEmTexto(valor[chave])}`)
+      .join(" ");
+  }
+
+  return String(valor);
+}
+
+function extrairPalavrasImportantes(texto) {
+  const palavrasIgnoradas = [
+    "qual", "quais", "como", "para", "sobre", "essa", "esse", "esta", "este",
+    "uma", "uns", "das", "dos", "com", "por", "que", "sao", "ser", "tem",
+    "mais", "menos", "pode", "podem", "deve", "devem", "isso", "nesta",
+    "neste", "desta", "deste", "da", "do", "de", "em", "no", "na", "nos",
+    "nas", "os", "as", "um", "ao", "aos", "e", "ou", "o", "a", "se",
+    "sua", "seu", "suas", "seus", "pela", "pelo", "pelas", "pelos",
+    "principal", "principais", "explique", "fale", "diga"
+  ];
+
+  return normalizarTexto(texto)
+    .split(/\s+/)
+    .map(palavra => palavra.trim())
+    .filter(palavra => palavra.length > 2)
+    .filter(palavra => !palavrasIgnoradas.includes(palavra));
+}
+
+function calcularPontuacaoLivre(palavrasPergunta, textoBase, culturaDoBloco, culturaIa) {
+  let pontos = 0;
+
+  palavrasPergunta.forEach(palavra => {
+    if (textoBase.includes(palavra)) {
+      pontos += 2;
+    }
+
+    if (palavra.length >= 5 && textoBase.includes(palavra.slice(0, 5))) {
+      pontos += 1;
+    }
+  });
+
+  if (culturaDoBloco === culturaIa) {
+    pontos += 2;
+  }
+
+  if (culturaDoBloco === "geral") {
+    pontos += 1;
+  }
+
+  return pontos;
+}
+
+function selecionarBlocosRelevantes(blocosPontuados) {
+  const maiorPontuacao = blocosPontuados[0].pontuacao;
+
+  if (maiorPontuacao < 3) {
+    return [];
+  }
+
+  return blocosPontuados
+    .filter(bloco => bloco.pontuacao >= Math.max(3, maiorPontuacao - 2))
+    .slice(0, 3);
+}
+
+function atualizarClasseFonte() {
+  document.body.classList.remove("fonte-grande", "fonte-maior", "fonte-extra");
+
+  if (nivelFonte === 1) {
+    document.body.classList.add("fonte-grande");
+  }
+
+  if (nivelFonte === 2) {
+    document.body.classList.add("fonte-maior");
+  }
+
+  if (nivelFonte === 3) {
+    document.body.classList.add("fonte-extra");
+  }
+}
+
+function aumentarFonte() {
+  if (nivelFonte < 3) {
+    nivelFonte++;
+    atualizarClasseFonte();
+  }
+}
+
+function diminuirFonte() {
+  if (nivelFonte > 0) {
+    nivelFonte--;
+    atualizarClasseFonte();
+  }
+}
+
+function restaurarFonte() {
+  nivelFonte = 0;
+  atualizarClasseFonte();
+}
+
+function lerPagina() {
+  if (!("speechSynthesis" in window)) {
+    alert("Seu navegador não oferece suporte à leitura de texto.");
+    return;
+  }
+
+  pararLeitura();
+
+  const conteudo = document.getElementById("conteudo-principal") || document.querySelector("main");
+  const texto = conteudo ? conteudo.innerText : document.body.innerText;
+
+  if (!texto.trim()) {
+    alert("Não há texto disponível para leitura.");
+    return;
+  }
+
+  const fala = new SpeechSynthesisUtterance(texto);
+  fala.lang = "pt-BR";
+  fala.rate = 0.95;
+  fala.pitch = 1;
+
+  window.speechSynthesis.speak(fala);
+}
+
+function pararLeitura() {
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
+}
+
+function iniciarAcessibilidade() {
+  const acessibilidade = document.querySelector(".acessibilidade");
+  const btnToggle = document.getElementById("btn-toggle-acessibilidade");
+  const painel = document.getElementById("painel-acessibilidade");
+
+  const btnAumentar = document.getElementById("btn-aumentar-fonte");
+  const btnDiminuir = document.getElementById("btn-diminuir-fonte");
+  const btnRestaurar = document.getElementById("btn-restaurar-fonte");
+  const btnLer = document.getElementById("btn-ler-pagina");
+  const btnParar = document.getElementById("btn-parar-leitura");
+  const btnConsultarIa = document.getElementById("btn-consultar-ia");
+
+  if (btnToggle && acessibilidade && painel) {
+    btnToggle.addEventListener("click", function () {
+      const estaAberto = acessibilidade.classList.toggle("aberta");
+
+      btnToggle.setAttribute("aria-expanded", estaAberto ? "true" : "false");
+      painel.setAttribute("aria-hidden", estaAberto ? "false" : "true");
+
+      if (estaAberto) {
+        btnToggle.textContent = "Fechar acessibilidade";
+      } else {
+        btnToggle.textContent = "Acessibilidade";
+      }
+    });
+  }
+
+  if (btnAumentar) {
+    btnAumentar.addEventListener("click", aumentarFonte);
+  }
+
+  if (btnDiminuir) {
+    btnDiminuir.addEventListener("click", diminuirFonte);
+  }
+
+  if (btnRestaurar) {
+    btnRestaurar.addEventListener("click", restaurarFonte);
+  }
+
+  if (btnLer) {
+    btnLer.addEventListener("click", lerPagina);
+  }
+
+  if (btnParar) {
+    btnParar.addEventListener("click", pararLeitura);
+  }
+
+  if (btnConsultarIa) {
+    btnConsultarIa.addEventListener("click", consultarIa);
+  }
+}
+
 function formatarTitulo(texto) {
   return String(texto)
     .replaceAll("_", " ")
@@ -377,85 +796,17 @@ function escaparAtributo(valor) {
     .replaceAll(">", "%3E");
 }
 
-async function consultarIa() {
-  const chaveIaCampo = document.getElementById("chaveIa");
-  const culturaIaCampo = document.getElementById("culturaIa");
-  const perguntaIaCampo = document.getElementById("perguntaIa");
-  const respostaIa = document.getElementById("respostaIa");
-
-  if (!chaveIaCampo || !culturaIaCampo || !perguntaIaCampo || !respostaIa) {
-    return;
-  }
-
-  const chaveIa = chaveIaCampo.value.trim();
-  const culturaIa = culturaIaCampo.value.trim();
-  const perguntaIa = perguntaIaCampo.value.trim();
-
-  respostaIa.classList.remove("erro");
-
-  if (!chaveIa) {
-    respostaIa.classList.add("erro");
-    respostaIa.textContent = "Digite uma chave temporária de IA.";
-    return;
-  }
-
-  if (!culturaIa) {
-    respostaIa.classList.add("erro");
-    respostaIa.textContent = "Digite o nome da cultura agrícola que deseja consultar.";
-    return;
-  }
-
-  if (!perguntaIa) {
-    respostaIa.classList.add("erro");
-    respostaIa.textContent = "Digite uma pergunta relacionada à agricultura.";
-    return;
-  }
-
-  respostaIa.textContent = "Consultando a IA...";
-
-  try {
-    const resposta = await fetch("https://ceducap.com.br/ia/agrinho_openai.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        chaveIa: chaveIa,
-        cultura: culturaIa,
-        pergunta: perguntaIa,
-        dadosCultura: dadosCulturaAtual
-      })
-    });
-
-    const tipoConteudo = resposta.headers.get("content-type");
-
-    if (!tipoConteudo || !tipoConteudo.includes("application/json")) {
-      throw new Error("O servidor PHP não retornou JSON válido.");
-    }
-
-    const resultado = await resposta.json();
-
-    if (!resposta.ok) {
-      throw new Error(resultado.erro || "Erro ao consultar a IA.");
-    }
-
-    respostaIa.textContent = resultado.resposta || "A IA não retornou uma resposta.";
-
-    const apagarChaveCampo = document.getElementById("apagarChaveAposConsulta");
-    const apagarChave = apagarChaveCampo ? apagarChaveCampo.checked : true;
-
-    if (apagarChave) {
-      chaveIaCampo.value = "";
-    }
-
-  } catch (erro) {
-    respostaIa.classList.add("erro");
-    respostaIa.textContent = "Erro: " + erro.message;
-    console.error(erro);
-  }
+function normalizarTexto(texto) {
+  return String(texto || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  iniciarAcessibilidade();
+
   const culturaDaPagina = document.body.dataset.cultura;
 
   if (culturaDaPagina) {
