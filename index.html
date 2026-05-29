@@ -12,26 +12,65 @@
   >
 
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
 
   <header class="topo" id="inicio">
     <div class="topo-conteudo">
+
       <div class="marca-projeto">
         <a href="index.html" class="logo">🌱 Agrinho</a>
-        <p class="tema-projeto">Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
+        <p class="tema-projeto">
+          Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente
+        </p>
       </div>
 
-      <nav class="menu">
+      <nav class="menu" aria-label="Menu principal">
         <a href="#inicio">Início</a>
         <a href="#culturas">Culturas</a>
         <a href="#sobre">Sobre</a>
         <a href="#fontes">Fontes</a>
       </nav>
+
     </div>
   </header>
 
-  <main>
+  <div class="acessibilidade" aria-label="Recursos de acessibilidade">
+    <button 
+      type="button" 
+      id="btn-toggle-acessibilidade" 
+      class="btn-acessibilidade-principal"
+      aria-label="Abrir opções de acessibilidade"
+      aria-expanded="false"
+    >
+      Acessibilidade
+    </button>
+
+    <div class="painel-acessibilidade" id="painel-acessibilidade" aria-hidden="true">
+      <button type="button" id="btn-aumentar-fonte" aria-label="Aumentar tamanho da fonte">
+        A+
+      </button>
+
+      <button type="button" id="btn-diminuir-fonte" aria-label="Diminuir tamanho da fonte">
+        A-
+      </button>
+
+      <button type="button" id="btn-restaurar-fonte" aria-label="Restaurar tamanho padrão da fonte">
+        Fonte padrão
+      </button>
+
+      <button type="button" id="btn-ler-pagina" aria-label="Ler conteúdo principal da página">
+        Ler página
+      </button>
+
+      <button type="button" id="btn-parar-leitura" aria-label="Parar leitura da página">
+        Parar leitura
+      </button>
+    </div>
+  </div>
+
+  <main id="conteudo-principal">
 
     <section class="hero">
       <div class="hero-texto">
@@ -59,10 +98,23 @@
         <div class="hero-card-conteudo">
           <span>🌾</span>
           <h2>Campo, tecnologia e sustentabilidade</h2>
+
           <p>
-            Cada cultura possui uma página própria com dados organizados, imagem ilustrativa,
+            Cada cultura agrícola aqui apresentada, possui uma página própria com dados organizados, imagem ilustrativa,
             fontes consultadas e apoio de leitura por JavaScript.
           </p>
+
+          <hr class="linha-hero">
+
+          <h3>Como o projeto foi elaborado</h3>
+
+          <ol class="lista-hero">
+            <li>Análise do tema proposto pelo projeto.</li>
+            <li>Pesquisa sobre culturas agrícolas relevantes no Paraná.</li>
+            <li>Coleta de fontes confiáveis sobre essas culturas.</li>
+            <li>Transformação das informações coletadas em arquivos JSON resumidos.</li>
+            <li>Elaboração do site do projeto com HTML, CSS e JavaScript.</li>
+          </ol>
         </div>
       </div>
     </section>
@@ -72,14 +124,14 @@
         <span class="etiqueta">Culturas agrícolas</span>
         <h2>Escolha uma cultura</h2>
         <p>
-          Clique em uma cultura para abrir uma página específica com informações pesquisadas,
+          Clique em uma cultura agrícola para abrir uma página específica com informações pesquisadas,
           análise dos dados e fontes utilizadas.
         </p>
       </div>
 
       <div class="cards-culturas">
 
-        <article class="card-cultura">
+        <a href="feijao.html" class="card-cultura card-link" aria-label="Abrir página do feijão">
           <img src="img/feijao.png" alt="Imagem representando o cultivo de feijão">
 
           <div>
@@ -90,11 +142,11 @@
               e importância para a segurança alimentar.
             </p>
 
-            <a href="feijao.html" class="botao-principal">Ver página do feijão</a>
+            <span class="botao-principal">Ver página do feijão</span>
           </div>
-        </article>
+        </a>
 
-        <article class="card-cultura">
+        <a href="milho.html" class="card-cultura card-link" aria-label="Abrir página do milho">
           <img src="img/milho.png" alt="Imagem representando o cultivo de milho">
 
           <div>
@@ -105,11 +157,11 @@
               de rotação de culturas.
             </p>
 
-            <a href="milho.html" class="botao-principal">Ver página do milho</a>
+            <span class="botao-principal">Ver página do milho</span>
           </div>
-        </article>
+        </a>
 
-        <article class="card-cultura">
+        <a href="soja.html" class="card-cultura card-link" aria-label="Abrir página da soja">
           <img src="img/soja.png" alt="Imagem representando o cultivo de soja">
 
           <div>
@@ -120,9 +172,9 @@
               produção, mercado e sustentabilidade.
             </p>
 
-            <a href="soja.html" class="botao-principal">Ver página da soja</a>
+            <span class="botao-principal">Ver página da soja</span>
           </div>
-        </article>
+        </a>
 
       </div>
     </section>
@@ -181,33 +233,40 @@
           Entre as referências estão relatórios agrícolas, censos agropecuários e estudos técnicos.
         </p>
       </div>
-<div class="fontes-dados">
-  <h3>Fontes utilizadas na pesquisa</h3>
 
-  <ul>
-    <li>Secretaria da Agricultura e do Abastecimento do Paraná - SEAB.</li>
-    <li>Departamento de Economia Rural do Paraná - DERAL.</li>
-    <li>Página oficial “Situação das Principais Culturas” - SEAB/DERAL.</li>
-    <li>Levantamento da Produção Agropecuária do Paraná - DERAL.</li>
-    <li>Relatórios e documentos técnicos sobre milho, soja e feijão no Paraná.</li>
-    <li>IBGE - Censo Agropecuário.</li>
-    <li>IPEA - Estudos sobre agricultura familiar brasileira.</li>
-    <li>UTFPR - Estudo sobre sistema de controle automático de termonebulizador agrícola para controle de geadas em plantações.</li>
-    <li>eduCAPES - Registro de trabalho técnico relacionado ao controle de geadas em plantações.</li>
-    <li>Pesquisa sobre a dinâmica da agricultura familiar em Toledo/PR com base nos Censos Agropecuários de 2006 e 2017.</li>
-    <li>Panorama da Agricultura Familiar e da Produção Orgânica no Paraná.</li>
-    <li>Materiais técnicos sobre agricultura familiar, produção orgânica, sustentabilidade e riscos climáticos.</li>
-  </ul>
+      <div class="fontes-dados">
+        <h3>Fontes utilizadas na pesquisa</h3>
 
-  <h3>Uso de Inteligência Artificial</h3>
+        <ul>
+          <li>Secretaria da Agricultura e do Abastecimento do Paraná - SEAB.</li>
+          <li>Departamento de Economia Rural do Paraná - DERAL.</li>
+          <li>Página oficial “Situação das Principais Culturas” - SEAB/DERAL.</li>
+          <li>Levantamento da Produção Agropecuária do Paraná - DERAL.</li>
+          <li>Relatórios e documentos técnicos sobre milho, soja e feijão no Paraná.</li>
+          <li>IBGE - Censo Agropecuário.</li>
+          <li>IPEA - Estudos sobre agricultura familiar brasileira.</li>
+          <li>UTFPR - Estudo sobre sistema de controle automático de termonebulizador agrícola para controle de geadas em plantações.</li>
+          <li>eduCAPES - Registro de trabalho técnico relacionado ao controle de geadas em plantações.</li>
+          <li>Pesquisa sobre a dinâmica da agricultura familiar em Toledo/PR com base nos Censos Agropecuários de 2006 e 2017.</li>
+          <li>Panorama da Agricultura Familiar e da Produção Orgânica no Paraná.</li>
+          <li>Materiais técnicos sobre agricultura familiar, produção orgânica, sustentabilidade e riscos climáticos.</li>
+        </ul>
+      </div>
 
-  <ul>
-    <li>Gemini: utilizado como apoio na criação das imagens ilustrativas das culturas agrícolas presentes no site.</li>
-    <li>ChatGPT: utilizado como apoio na revisão e melhoria dos códigos HTML, CSS e JavaScript.</li>
-    <li>A Inteligência Artificial foi utilizada como ferramenta de apoio educacional, sem substituir a pesquisa, a organização dos dados e a autoria.</li>
-    <li>As informações apresentadas no projeto foram conferidas e organizadas a partir das fontes de pesquisa indicadas nas páginas das culturas.</li>
-  </ul>
-</div>
+      <div class="fontes-dados">
+        <h3>Uso de Inteligência Artificial</h3>
+
+        <ul>
+          <li>Gemini: utilizado como apoio na criação das imagens ilustrativas das culturas agrícolas presentes no site.</li>
+          <li>ChatGPT: utilizado como apoio na revisão e melhoria dos códigos HTML, CSS e JavaScript.</li>
+          <li>ChatGPT: utilizado também para produzir o conteúdo textual do arquivo <strong>ia_simulada.json</strong>, criado para a simulação educativa de pesquisa com IA.</li>
+          <li>A área de pesquisa com IA presente nas páginas das culturas é uma simulação. Ela não utiliza API real, não envia dados para serviços externos e não depende de chave de acesso.</li>
+          <li>As respostas da simulação são carregadas de um arquivo JSON local, localizado na pasta <strong>dados</strong>, com o nome <strong>ia_simulada.json</strong>.</li>
+          <li>A simulação foi criada para demonstrar, de forma educativa, como uma IA poderia apoiar consultas sobre agricultura familiar, sustentabilidade, clima, mercado, feijão, milho e soja.</li>
+          <li>A Inteligência Artificial foi utilizada como ferramenta de apoio educacional, sem substituir a pesquisa, a organização dos dados e a autoria.</li>
+          <li>As informações apresentadas no projeto foram conferidas e organizadas a partir das fontes de pesquisa indicadas nas páginas das culturas.</li>
+        </ul>
+      </div>
     </section>
 
   </main>
@@ -217,5 +276,6 @@
     <p>Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente.</p>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
